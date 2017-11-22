@@ -127,39 +127,40 @@ def train_neural_network():
                 saver.save(sess, "name2sex.model", global_step=e)
 
 
-train_neural_network()
+
+# train_neural_network()
 
 
-# # 使用训练的模型
-# def detect_sex(name_list):
-#     x = []
-#     for name in name_list:
-#         name_vec = []
-#         for word in name:
-#             name_vec.append(vocab.get(word))
-#         while len(name_vec) < max_name_length:
-#             name_vec.append(0)
-#         x.append(name_vec)
-#
-#     output = neural_network(len(vocabulary_list))
-#
-#     saver = tf.train.Saver(tf.global_variables())
-#     with tf.Session() as sess:
-#         # 恢复前一次训练
-#         ckpt = tf.train.get_checkpoint_state('.')
-#         if ckpt != None:
-#             print(ckpt.model_checkpoint_path)
-#             saver.restore(sess, ckpt.model_checkpoint_path)
-#         else:
-#             print("没找到模型")
-#
-#         predictions = tf.argmax(output, 1)
-#         res = sess.run(predictions, {X: x, dropout_keep_prob: 1.0})
-#
-#         i = 0
-#         for name in name_list:
-#             print(name, '女' if res[i] == 0 else '男')
-#             i += 1
-#
-#
-# detect_sex(["白富美", "高帅富", "王婷婷", "田野"])
+# 使用训练的模型
+def detect_sex(name_list):
+    x = []
+    for name in name_list:
+        name_vec = []
+        for word in name:
+            name_vec.append(vocab.get(word))
+        while len(name_vec) < max_name_length:
+            name_vec.append(0)
+        x.append(name_vec)
+
+    output = neural_network(len(vocabulary_list))
+
+    saver = tf.train.Saver(tf.global_variables())
+    with tf.Session() as sess:
+        # 恢复前一次训练
+        ckpt = tf.train.get_checkpoint_state('.')
+        if ckpt != None:
+            print(ckpt.model_checkpoint_path)
+            saver.restore(sess, ckpt.model_checkpoint_path)
+        else:
+            print("没找到模型")
+
+        predictions = tf.argmax(output, 1)
+        res = sess.run(predictions, {X: x, dropout_keep_prob: 1.0})
+
+        i = 0
+        for name in name_list:
+            print(name, '女' if res[i] == 0 else '男')
+            i += 1
+
+
+detect_sex(["白富美", "高帅富", "王婷婷", "田野"])
