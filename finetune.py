@@ -67,7 +67,7 @@ with tf.device('/cpu:0'):
                                   batch_size=batch_size,
                                   num_classes=num_classes,
                                   shuffle=False)
-
+    tr_data.data.output_shapes
     # create an reinitializable iterator given the dataset structure
     iterator = Iterator.from_structure(tr_data.data.output_types,
                                        tr_data.data.output_shapes)
